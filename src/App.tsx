@@ -1,24 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import Test from './components/Test';
 import './App.css';
+import TypeTest from './components/TypeTest';
+import ZaehlerType from './components/ZaehlerButton'
+
+export interface IState {
+  person: {
+    name: string
+    age: number
+    note?: string
+  }[]
+}
+
+export type IZaehler = {
+  zaehler: {
+    number?: number
+  }
+}
+
 
 function App() {
+
+  const [zahl, setZahl] = useState<IZaehler["zaehler"]>({number : 0})
+
+  const [person, setPerson] = useState<IState["person"]>([
+    {
+      name : 'Foo',
+      age: 12,
+      note: 'This is a Note'
+    },
+    {
+      name: 'Bar',
+      age: 17,
+      note: 'This is another note'
+    }
+]);
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='NameList'>
+        <Test person = {person}/>
+      </div>
+      <div className='inputFieldStyle'>
+        <TypeTest zaehler = {zahl}/>
+        <ZaehlerType setZahl = {setZahl} zaehler = {zahl}/>
+      </div>
     </div>
   );
 }
